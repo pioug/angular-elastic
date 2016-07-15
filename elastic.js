@@ -103,7 +103,7 @@ angular.module('monospaced.elastic', [])
 
           // set resize and apply elastic
           $ta.css({
-            'resize': (resize === 'none' || resize === 'vertical') ? 'none' : 'horizontal'
+            'resize': (resize === '' || resize === 'none' || resize === 'vertical') ? 'none' : 'horizontal'
           }).data('elastic', true);
 
           /*
