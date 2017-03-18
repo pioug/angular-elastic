@@ -96,11 +96,6 @@ angular.module('monospaced.elastic', [])
           // Opera returns max-height of -1 if not set
           maxHeight = maxHeight && maxHeight > 0 ? maxHeight : 9e4;
 
-          // append mirror to the DOM
-          if (mirror.parentNode !== document.body) {
-            angular.element(document.body).append(mirror);
-          }
-
           // set resize and apply elastic
           $ta.css({
             'resize': (resize === '' || resize === 'none' || resize === 'vertical') ? 'none' : 'horizontal'
@@ -197,6 +192,14 @@ angular.module('monospaced.elastic', [])
           scope.$watch(function() {
             return ngModel.$modelValue;
           }, function(newValue) {
+            if (!newValue) {
+              return;
+            }
+
+            if (mirror.parentNode !== document.body) {
+              angular.element(document.body).append(mirror);
+            }
+
             forceAdjust();
           });
 
@@ -205,12 +208,9 @@ angular.module('monospaced.elastic', [])
             forceAdjust();
           });
 
-          $timeout(adjust, 0, false);
-
           /*
            * destroy
            */
-
           scope.$on('$destroy', function() {
             $mirror.remove();
             $win.unbind('resize', forceAdjust);
