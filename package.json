@@ -9,13 +9,13 @@
     "elastic",
     "autosize"
   ],
-  "homepage": "http://monospaced.github.io/angular-elastic/",
+  "homepage": "http://pioug.github.io/angular-elastic/",
   "main": "elastic",
-  "bugs": "http://github.com/monospaced/angular-elastic/issues",
+  "bugs": "http://github.com/pioug/angular-elastic/issues",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "http://github.com/monospaced/angular-elastic"
+    "url": "http://github.com/pioug/angular-elastic"
   },
   "author": {
     "name": "Scott Boyle",

@@ -2,7 +2,7 @@
 
 Elastic (autosize) textareas for AngularJS, without jQuery dependency.
 
-[See it in action](http://monospaced.github.io/angular-elastic).
+[See it in action](http://pioug.github.io/angular-elastic).
 
 ## Usage
 
@@ -83,8 +83,7 @@ angular.module("yourApp", ["monospaced.elastic"]);
 
 ## Demo
 
-- [monospaced.github.io/angular-elastic](http://monospaced.github.io/angular-elastic)
-- [plunker](http://plnkr.co/edit/9y6YLriAwsK9hqdu72WT?p=preview)
+- [pioug.github.io/angular-elastic](http://pioug.github.io/angular-elastic)
 
 ## How it works
 
