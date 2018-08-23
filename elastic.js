@@ -66,37 +66,6 @@ angular
             mirror = $mirror[0],
             taStyle = getComputedStyle(ta),
             resize = taStyle.getPropertyValue("resize"),
-            borderBox =
-              taStyle.getPropertyValue("box-sizing") === "border-box" ||
-              taStyle.getPropertyValue("-moz-box-sizing") === "border-box" ||
-              taStyle.getPropertyValue("-webkit-box-sizing") === "border-box",
-            boxOuter = !borderBox
-              ? { width: 0, height: 0 }
-              : {
-                  width:
-                    parseInt(
-                      taStyle.getPropertyValue("border-right-width"),
-                      10
-                    ) +
-                    parseInt(taStyle.getPropertyValue("padding-right"), 10) +
-                    parseInt(taStyle.getPropertyValue("padding-left"), 10) +
-                    parseInt(taStyle.getPropertyValue("border-left-width"), 10),
-                  height:
-                    parseInt(taStyle.getPropertyValue("border-top-width"), 10) +
-                    parseInt(taStyle.getPropertyValue("padding-top"), 10) +
-                    parseInt(taStyle.getPropertyValue("padding-bottom"), 10) +
-                    parseInt(
-                      taStyle.getPropertyValue("border-bottom-width"),
-                      10
-                    )
-                },
-            minHeightValue = parseInt(
-              taStyle.getPropertyValue("min-height"),
-              10
-            ),
-            heightValue = parseInt(taStyle.getPropertyValue("height"), 10),
-            minHeight = Math.max(minHeightValue, heightValue) - boxOuter.height,
-            maxHeight = parseInt(taStyle.getPropertyValue("max-height"), 10),
             mirrored,
             active,
             copyStyle = [
@@ -115,9 +84,6 @@ angular
           if ($ta.data("elastic")) {
             return;
           }
-
-          // Opera returns max-height of -1 if not set
-          maxHeight = maxHeight && maxHeight > 0 ? maxHeight : 9e4;
 
           // set resize and apply elastic
           $ta
@@ -146,7 +112,18 @@ angular
           }
 
           function adjust() {
-            var taHeight, taComputedStyleWidth, mirrorHeight, width, overflow;
+            var borderBox,
+              boxOuter,
+              heightValue,
+              maxHeight,
+              minHeight,
+              minHeightValue,
+              mirrorHeight,
+              overflow,
+              taComputedStyle,
+              taComputedStyleWidth,
+              taHeight,
+              width;
 
             if (mirrored !== ta) {
               initMirror();
@@ -162,9 +139,72 @@ angular
               taHeight =
                 ta.style.height === "" ? "auto" : parseInt(ta.style.height, 10);
 
-              taComputedStyleWidth = getComputedStyle(ta).getPropertyValue(
-                "width"
+              taComputedStyle = getComputedStyle(ta);
+              taComputedStyleWidth = taComputedStyle.getPropertyValue("width");
+
+              maxHeight = parseInt(
+                taComputedStyle.getPropertyValue("max-height"),
+                10
               );
+
+              // Opera returns max-height of -1 if not set
+              maxHeight = maxHeight && maxHeight > 0 ? maxHeight : 9e4;
+
+              borderBox =
+                taComputedStyle.getPropertyValue("box-sizing") ===
+                  "border-box" ||
+                taComputedStyle.getPropertyValue("-moz-box-sizing") ===
+                  "border-box" ||
+                taComputedStyle.getPropertyValue("-webkit-box-sizing") ===
+                  "border-box";
+              boxOuter = !borderBox
+                ? { width: 0, height: 0 }
+                : {
+                    width:
+                      parseInt(
+                        taComputedStyle.getPropertyValue("border-right-width"),
+                        10
+                      ) +
+                      parseInt(
+                        taComputedStyle.getPropertyValue("padding-right"),
+                        10
+                      ) +
+                      parseInt(
+                        taComputedStyle.getPropertyValue("padding-left"),
+                        10
+                      ) +
+                      parseInt(
+                        taComputedStyle.getPropertyValue("border-left-width"),
+                        10
+                      ),
+                    height:
+                      parseInt(
+                        taComputedStyle.getPropertyValue("border-top-width"),
+                        10
+                      ) +
+                      parseInt(
+                        taComputedStyle.getPropertyValue("padding-top"),
+                        10
+                      ) +
+                      parseInt(
+                        taComputedStyle.getPropertyValue("padding-bottom"),
+                        10
+                      ) +
+                      parseInt(
+                        taComputedStyle.getPropertyValue("border-bottom-width"),
+                        10
+                      )
+                  };
+              minHeightValue = parseInt(
+                taStyle.getPropertyValue("min-height"),
+                10
+              );
+              heightValue = parseInt(
+                taComputedStyle.getPropertyValue("height"),
+                10
+              );
+              minHeight =
+                Math.max(minHeightValue, heightValue) - boxOuter.height;
 
               // ensure getComputedStyle has returned a readable 'used value' pixel width
               if (
