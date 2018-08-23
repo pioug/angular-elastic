@@ -1,9 +1,3 @@
-/*
- * angular-elastic v2.5.1
- * (c) 2014 Monospaced http://monospaced.com
- * License: MIT
- */
-
 if (
   typeof module !== "undefined" &&
   typeof exports !== "undefined" &&
