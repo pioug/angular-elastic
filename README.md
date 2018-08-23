@@ -50,8 +50,6 @@ Set the `rows` attribute to `1`, as browsers default to `2`.
 
 ## Install
 
-    bower install angular-elastic
-
     npm install angular-elastic
 
 Include the `elastic.js` script provided by this component in your app.
