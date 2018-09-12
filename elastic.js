@@ -203,8 +203,7 @@ angular
                 taComputedStyle.getPropertyValue("height"),
                 10
               );
-              minHeight =
-                Math.max(minHeightValue, heightValue) - boxOuter.height;
+              minHeight = (minHeightValue || heightValue) - boxOuter.height;
 
               // ensure getComputedStyle has returned a readable 'used value' pixel width
               if (
